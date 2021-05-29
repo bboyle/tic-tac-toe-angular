@@ -13,6 +13,8 @@ type TicTacToeBoard = TicTacToeValue[][];
 })
 export class BoardComponent {
 
+  gameOver = false;
+
   // need to eventually protect this from changes via browser dev tools
   grid: TicTacToeBoard = [
     [null, null, null],
@@ -23,15 +25,26 @@ export class BoardComponent {
   player: TicTacToePlayer = 1;
 
 
+  detectGameOver(row: number, column: number) {
+    // if grid is filled, game is over
+    if (this.grid.every(rows => rows.every(value => value !== null))) {
+      this.gameOver = true;
+      // stalemate?
+    }
+  }
+
+
   newGame() {
     this.player = 1;
     this.grid.forEach(row => row.fill(null));
+    this.gameOver = false;
   }
 
 
   play(row: number, column: number, player: TicTacToePlayer) {
     if (!Array.isArray(this.grid[row]) || this.grid[row][column] !== null) return;
     this.grid[row][column] = player;
-    this.player = this.player === 1 ? 2 : 1
+    this.player = this.player === 1 ? 2 : 1;
+    this.detectGameOver(row, column);
   }
 }

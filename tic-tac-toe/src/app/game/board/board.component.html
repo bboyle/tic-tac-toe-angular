@@ -11,3 +11,7 @@
 </table>
 
 <button (click)="newGame()">New Game</button>
+
+<div *ngIf="gameOver">
+  <h2>Game Over!</h2>
+</div>
