@@ -23,9 +23,20 @@ export class BoardComponent {
   ];
 
   player: TicTacToePlayer = 1;
+  winner: TicTacToePlayer | null = null;
 
 
   detectGameOver(row: number, column: number) {
+    // check for winner on row
+    this.winner = this.getRowWinner(row);
+    if (this.winner) {
+      this.gameOver = true;
+      return;
+    }
+
+    // check for winner on column
+    // check for winner on diagonal
+
     // if grid is filled, game is over
     if (this.grid.every(rows => rows.every(value => value !== null))) {
       this.gameOver = true;
@@ -35,6 +46,7 @@ export class BoardComponent {
 
 
   newGame() {
+    this.winner = null;
     this.player = 1;
     this.grid.forEach(row => row.fill(null));
     this.gameOver = false;
@@ -46,5 +58,15 @@ export class BoardComponent {
     this.grid[row][column] = player;
     this.player = this.player === 1 ? 2 : 1;
     this.detectGameOver(row, column);
+  }
+
+
+  private getRowWinner(row: number): TicTacToePlayer | null {
+    const values = this.grid[row];
+    if (values[0] !== null && values.every(value => value === values[0])) {
+      return values[0];
+    }
+
+    return null;
   }
 }
