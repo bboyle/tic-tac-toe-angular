@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+main {
+  display: block;
+  margin: auto;
+  text-align: center;
+  max-width: minmax(600px, 100vw);
+  max-height: minmax(600px, 100vh);
+}
