@@ -1,17 +1,13 @@
 <table>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
+  <tr *ngFor="let rowValues of grid; index as row">
+    <td *ngFor="let cell of rowValues; index as col" class="played-{{cell}}" [ngSwitch]="cell">
+      <span *ngSwitchCase="1">O</span>
+      <span *ngSwitchCase="2">X</span>
+      <span *ngSwitchDefault>
+        <button (click)="play(row, col, player)">{{row}}, {{col}}</button>
+      </span>
+    </td>
   </tr>
 </table>
+
+<button (click)="newGame()">New Game</button>
